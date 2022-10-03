@@ -14,7 +14,7 @@ class Entidade(ABC):
   @property
   def atributos(self) -> dict:
     return {
-      k.replace(f'_{self.tableName}__', ''): v 
+      k.replace(f'_{self.tableName}__', ''): v
       for k, v in self.__dict__.items() if k.startswith(f'_{self.tableName}')
     }
 
@@ -28,13 +28,13 @@ class Entidade(ABC):
     ''' Deve criar a cláusula para criar a tabela '''
   
   def guardar(self):
-    valores = tuple(self.atributos.values())
+    valores = tuple([v.identificador if isinstance(v, Entidade) else v for v in self.atributos.values()])
     parametros = '('+','.join('?' for _ in valores)+')'
-    
+
     try:
       with self.connection:
         self.cursor.execute(f"""
-          INSERT INTO {self.tableName} 
+          INSERT OR IGNORE INTO {self.tableName} 
           VALUES {parametros}
         """, valores)
         return True
@@ -42,7 +42,7 @@ class Entidade(ABC):
       raise
 
   def atualizar(self):
-    set_statement = ', '.join([f"{k} = '{v}'" for k, v in self.atributos.items()])
+    set_statement = ', '.join([f"{k} = '{v}'" for k, v in self.atributos.items() if not isinstance(v, Entidade)])
 
     try:
       with self.connection:
