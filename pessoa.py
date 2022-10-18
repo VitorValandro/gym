@@ -1,5 +1,5 @@
 from endereco import Endereco
-from entidade import Entidade
+from abstract.entidade import Entidade
 
 
 class Pessoa(Entidade):

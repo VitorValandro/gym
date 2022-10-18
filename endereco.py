@@ -1,4 +1,4 @@
-from entidade import Entidade
+from abstract.entidade import Entidade
 
 
 class Endereco(Entidade):

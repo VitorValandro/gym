@@ -42,7 +42,7 @@ class Entidade(ABC):
       raise
 
   def atualizar(self):
-    set_statement = ', '.join([f"{k} = '{v}'" for k, v in self.atributos.items() if not isinstance(v, Entidade)])
+    set_statement = ', '.join([f"{k} = '{v}'" for k, v in self.atributos.items() if not isinstance(v, Entidade) and v is not None])
 
     try:
       with self.connection:
@@ -70,3 +70,9 @@ class Entidade(ABC):
   def buscar(self):
     res = self.cursor.execute(f"SELECT * FROM {self.tableName}")
     return res.fetchall()
+
+  def __eq__(self, other):
+    if self.identificador == other.identificador: 
+      return True
+    else:
+      return False
