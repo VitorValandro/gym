@@ -74,6 +74,15 @@ class Tela:
     entrada = self.inserir_inteiro(mensagem, opcoes)
     return opcoes[entrada]
 
+  def selecionar_estrangeiro(self, mensagem, controlador_estrangeiro, entidade_estrangeira):
+    try:
+      id_estrangeiros = self.listar(controlador_estrangeiro, entidade_estrangeira)
+      chave_estrangeira = self.inserir_inteiro(mensagem, id_estrangeiros)
+    except IsEmptyError:
+      print(f'Não há {entidade_estrangeira} cadastrados ainda. Faça o cadastro de {entidade_estrangeira} antes de prosseguir.')
+      return
+    return chave_estrangeira
+      
   def mostrar_opcoes(self):
     escolha = 0
     print(f'\n--- {self.titulo} ---')
@@ -101,6 +110,9 @@ class Tela:
       self.__controlador.cadastrar(dados)
     except:
       print(f'Ocorreu um problema ao cadastrar o objeto. Tente novamente.')
+      raise
+    else:
+      print('Objeto cadastrado com sucesso.')
 
   def editar(self):
     try:
@@ -117,11 +129,13 @@ class Tela:
     else:
       print(f'Editado com sucesso.')
   
-  def listar(self) -> list:
+  def listar(self, colecao = 1, titulo = 1) -> list:
+    if colecao == 1: colecao = self.__controlador.colecao
+    if titulo == 1: titulo = self.titulo
     identificadores = []
-    if len(self.__controlador.colecao):
-      print(f'\n-- Lista de {self.titulo} --')
-      for objeto in self.__controlador.colecao:
+    if len(colecao):
+      print(f'\n-- Lista de {titulo} --')
+      for objeto in colecao:
         identificadores.append(objeto.identificador)
         print(f'{objeto.identificador} - {objeto.nome}')
       print()

@@ -14,8 +14,15 @@
 
 from modules.aparelho.ControladorAparelho import ControladorAparelho
 from modules.aparelho.TelaAparelho import TelaAparelho
+from modules.exercicio.ControladorExercicio import ControladorExercicio
+from modules.exercicio.TelaExercicio import TelaExercicio
 
-controlador = ControladorAparelho()
-tela = TelaAparelho(controlador)
+# controladorAparelho = ControladorAparelho()
+# telaAparelho = TelaAparelho(controladorAparelho)
 
-tela.mostrar_opcoes()
+# telaAparelho.mostrar_opcoes()
+
+controladorExercicio = ControladorExercicio()
+telaExercicio = TelaExercicio(controladorExercicio, controladorAparelho)
+
+telaExercicio.mostrar_opcoes()

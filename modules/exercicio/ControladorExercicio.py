@@ -1,10 +1,10 @@
 from errors.IsEmptyError import IsEmptyError
 from errors.NotFound import NotFound
-from modules.aparelho.EntidadeAparelho import Aparelho
+from modules.exercicio.EntidadeExercicio import Exercicio
 
-class ControladorAparelho:
+class ControladorExercicio:
   def __init__(self):
-    self.__aparelhos = []
+    self.__exercicios = []
     try:
       self.carregar_dados()
     except IsEmptyError:
@@ -12,22 +12,22 @@ class ControladorAparelho:
 
   @property
   def colecao(self):
-    return self.__aparelhos
+    return self.__exercicios
 
   def cadastrar(self, dados: dict):
     try:
-      novo_aparelho = Aparelho(**dados)
-      novo_aparelho.guardar()
-      self.colecao.append(novo_aparelho)
+      novo_exercicio = Exercicio(**dados)
+      novo_exercicio.guardar()
+      self.colecao.append(novo_exercicio)
     except:
       raise ValueError
 
   def editar(self, id, dados: dict):
     try:
-      [aparelho, _] = self.buscar_por_id(id)
+      [objeto, _] = self.buscar_por_id(id)
       for chave, valor in dados.items():
-        setattr(aparelho, chave, valor)
-      aparelho.atualizar()
+        setattr(objeto, chave, valor)
+      objeto.atualizar()
     except (IsEmptyError, NotFound):
       raise
     except:
@@ -35,8 +35,8 @@ class ControladorAparelho:
 
   def deletar(self, id):
     try:
-      [aparelho, _] = self.buscar_por_id(id)
-      aparelho.remover()
+      [objeto, _] = self.buscar_por_id(id)
+      objeto.remover()
     except NotFound:
       raise NotFound
     except:
@@ -44,10 +44,10 @@ class ControladorAparelho:
 
   def carregar_dados(self):
     # Busca todos os cadastros e popula a listagem
-    result = Aparelho.buscar()
+    result = Exercicio.buscar()
     for dados in result:
-      aparelho = Aparelho(**dados)
-      self.colecao.append(aparelho)
+      exercicio = Exercicio(**dados)
+      self.colecao.append(exercicio)
 
   def buscar_por_id(self, id):
     # Recebe um id, busca ele na lista e devolve o objeto e o indice

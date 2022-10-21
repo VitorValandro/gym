@@ -3,14 +3,14 @@ from abstract.entidade import Entidade
 from errors.IsEmptyError import IsEmptyError
 
 
-class Aparelho(Entidade):
-  table_name = 'Aparelho'
-  def __init__(self, nome: str, quantidade: int, tipo: str, id = random.randint(1000,9999)) -> None:
-    super().__init__('Aparelho', 'id')
+class Exercicio(Entidade):
+  table_name = 'Exercicio'
+  def __init__(self, nome: str, tipo: str, aparelho: int, id = random.randint(1000,9999)) -> None:
+    super().__init__('Exercicio', 'id')
     self.__id = id
     self.__nome = nome
-    self.__quantidade = quantidade
     self.__tipo = tipo
+    self.__aparelho = aparelho
 
   @property
   def identificador(self):
@@ -25,36 +25,37 @@ class Aparelho(Entidade):
     self.__nome = nome
 
   @property
-  def quantidade(self):
-    return self.__quantidade
-
-  @quantidade.setter
-  def quantidade(self, quantidade):
-    self.__quantidade = quantidade
-
-  @property
   def tipo(self):
     return self.__tipo
 
   @tipo.setter
   def tipo(self, tipo):
     self.__tipo = tipo
+  
+  @property
+  def aparelho(self):
+    return self.__aparelho
+
+  @aparelho.setter
+  def aparelho(self, aparelho):
+    self.__aparelho = aparelho
 
   def criar(self):
     try:
       with self.connection:
         self.cursor.execute(f"""
           CREATE TABLE IF NOT EXISTS {self.tableName} 
-            (id INTEGER PRIMARY KEY, nome TEXT, quantidade INTEGER, tipo TEXT)
+            (id INTEGER PRIMARY KEY, nome TEXT, tipo TEXT, aparelho INTEGER NOT NULL,
+             FOREIGN KEY (aparelho) REFERENCES Aparelho (id))
         """)
       return True
     except Exception:
-      return False
+      raise
 
   @staticmethod
   def buscar() -> list:
     try:
-      res = Aparelho.cursor.execute(f"SELECT * FROM {Aparelho.table_name}")
+      res = Exercicio.cursor.execute(f"SELECT * FROM {Exercicio.table_name}")
       return [dict(row) for row in res.fetchall()]
     except:
       raise IsEmptyError
