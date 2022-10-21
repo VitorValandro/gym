@@ -3,12 +3,16 @@ import sqlite3
 
 
 class Entidade(ABC):
+  connection = sqlite3.connect('test.db')
+  connection.row_factory = sqlite3.Row   
+  cursor = connection.cursor()
+
   @abstractmethod
   def __init__(self, name: str, coluna_id: str) -> None:
     self.coluna_id = coluna_id
     self.tableName = name
-    self.connection = sqlite3.connect('test.db')
-    self.cursor = self.connection.cursor()
+    self.connection = Entidade.connection
+    self.cursor = Entidade.cursor
     self.criar()
 
   @property
@@ -26,6 +30,11 @@ class Entidade(ABC):
   @abstractmethod
   def criar(self):
     ''' Deve criar a cláusula para criar a tabela '''
+
+  @staticmethod
+  @abstractmethod
+  def buscar():
+    ''' DEVE FAZER UM SELECT ALL NA TABELA DA ENTIDADE '''
   
   def guardar(self):
     valores = tuple([v.identificador if isinstance(v, Entidade) else v for v in self.atributos.values()])
@@ -66,10 +75,6 @@ class Entidade(ABC):
         return True
     except Exception:
       raise
-
-  def buscar(self):
-    res = self.cursor.execute(f"SELECT * FROM {self.tableName}")
-    return res.fetchall()
 
   def __eq__(self, other):
     if self.identificador == other.identificador: 

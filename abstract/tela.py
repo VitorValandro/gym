@@ -1,11 +1,11 @@
 from abc import ABC
+from errors import NotFound
 from errors.BadInputValue import BadInputValue
-
 from errors.IsEmptyError import IsEmptyError
 
 
 class Tela:
-  def __init__(self, titulo, objeto, opcoes):
+  def __init__(self, titulo, objeto, opcoes, controlador):
     ''' titulo: str '''
     self.__titulo = titulo
     '''
@@ -14,6 +14,8 @@ class Tela:
     self.__objeto = objeto
     ''' opcoes: [key: int]: [Descricao: str, funcao()] '''
     self.__opcoes = opcoes
+    ''' controlador: classe de controlador'''
+    self.__controlador = controlador
 
   @property
   def titulo(self):
@@ -84,12 +86,62 @@ class Tela:
   def pegar_dados(self) -> dict:
     objeto = {}
     for atributo, data in self.objeto.items():
-      if(data[2]):
-        if(data[4]):
-          # se houver params, chama a função com os parâmetros
+      if(data[2]): # se for editável
+        if(data[4]): # se houver params, chama a função com os parâmetros
           valor = data[3](*data[4])
         else:
           valor = data[3]()
         objeto[atributo] = valor
     
     return objeto
+
+  def cadastrar(self):
+    dados = self.pegar_dados()
+    try:
+      self.__controlador.cadastrar(dados)
+    except:
+      print(f'Ocorreu um problema ao cadastrar o objeto. Tente novamente.')
+
+  def editar(self):
+    try:
+      id_registros = self.listar()
+      identificador = self.inserir_inteiro('Digite o id que deseja editar: ', id_registros)
+      dados = self.pegar_dados()
+      self.__controlador.editar(identificador, dados)
+    except IsEmptyError:
+      print(f'Não há {self.titulo} cadastrados ainda.')
+    except NotFound:
+      print(f'Nenhum objeto encontrado com id = {identificador}. Tente novamente.')
+    except:
+      print(f'Ocorreu um problema ao editar o objeto. Tente novamente.')
+    else:
+      print(f'Editado com sucesso.')
+  
+  def listar(self) -> list:
+    identificadores = []
+    if len(self.__controlador.colecao):
+      print(f'\n-- Lista de {self.titulo} --')
+      for objeto in self.__controlador.colecao:
+        identificadores.append(objeto.identificador)
+        print(f'{objeto.identificador} - {objeto.nome}')
+      print()
+      return identificadores
+    else:
+      raise IsEmptyError
+  
+  def deletar(self):
+    try:
+      id_registros = self.listar()
+      identificador = self.inserir_inteiro('Digite o id que deseja deletar: ', id_registros)
+      self.__controlador.deletar(identificador)
+    except IsEmptyError:
+      print(f'Não há {self.titulo} cadastrados ainda.')
+      return
+    except NotFound:
+      print(f'Nenhum objeto encontrado com id = {identificador}. Tente novamente.')
+      return
+    except:
+      print(f'Ocorreu um problema ao deletar o objeto. Tente novamente.')
+      return
+    else:
+      print(f'Deletado com sucesso.')

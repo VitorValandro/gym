@@ -1,9 +1,10 @@
 from abstract.tela import Tela
+from errors.NotFound import NotFound
 
 
 class TelaAparelho(Tela):
   def __init__(self, controlador):
-    titulo = 'PESSOAS'
+    titulo = 'Aparelhos'
     tipos = {
       1: 'CROSS',
       2: 'SUPINO',
@@ -17,13 +18,8 @@ class TelaAparelho(Tela):
     }
     opcoes = {
       1: ['Cadastrar um item', self.cadastrar],
-      2: ['Editar um item', self.cadastrar],
-      3: ['Listar itens', self.cadastrar],
-      4: ['Deletar um item', self.cadastrar],
+      2: ['Editar um item', self.editar],
+      3: ['Listar itens', self.listar],
+      4: ['Deletar um item', self.deletar],
     }
-    super().__init__(titulo, objeto, opcoes)
-    self.__controlador = controlador
-
-  def cadastrar(self):
-    dados = self.pegar_dados()
-    self.__controlador.cadastrar(dados)
+    super().__init__(titulo, objeto, opcoes, controlador)

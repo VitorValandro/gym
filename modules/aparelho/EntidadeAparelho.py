@@ -3,6 +3,7 @@ from abstract.entidade import Entidade
 
 
 class Aparelho(Entidade):
+  table_name = 'Aparelho'
   def __init__(self, nome: str, quantidade: int, tipo: str, id = random.randint(1000,9999)) -> None:
     super().__init__('Aparelho', 'id')
     self.__id = id
@@ -13,11 +14,11 @@ class Aparelho(Entidade):
   @property
   def identificador(self):
     return self.__id
-  
+
   @property
   def nome(self):
     return self.__nome
-  
+
   @nome.setter
   def nome(self, nome):
     self.__nome = nome
@@ -25,7 +26,7 @@ class Aparelho(Entidade):
   @property
   def quantidade(self):
     return self.__quantidade
-  
+
   @quantidade.setter
   def quantidade(self, quantidade):
     self.__quantidade = quantidade
@@ -33,7 +34,7 @@ class Aparelho(Entidade):
   @property
   def tipo(self):
     return self.__tipo
-  
+
   @tipo.setter
   def tipo(self, tipo):
     self.__tipo = tipo
@@ -48,3 +49,8 @@ class Aparelho(Entidade):
       return True
     except Exception:
       return False
+
+  @staticmethod
+  def buscar() -> list:
+    res = Aparelho.cursor.execute(f"SELECT * FROM {Aparelho.table_name}")
+    return [dict(row) for row in res.fetchall()]
