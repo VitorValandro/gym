@@ -45,6 +45,23 @@ class Tela:
           print(f"Insira um valor numérico inteiro dentre as seguintes opções: {' '.join([str(x) for x in opcoes])}")
       else:
         return int(i)
+  
+  def inserir_float(self, message, opcoes: list = None) -> int:
+    if opcoes: print(f"Insira um valor numérico decimal dentre as seguintes opções: {' '.join([str(x) for x in opcoes])}")
+    while True:
+      try:
+        i = float(input(message))
+        if opcoes:
+          if i not in opcoes:
+            raise ValueError
+
+      except ValueError:
+        if not opcoes: 
+          print('Insira um valor numérico valido.')
+        elif opcoes: 
+          print(f"Insira um valor numérico dentre as seguintes opções: {' '.join([str(x) for x in opcoes])}")
+      else:
+        return int(i)
     
   def inserir_string(self, mensagem = 'Insira uma string', min_len = None, max_len = None):
     texto = '\n'+mensagem
