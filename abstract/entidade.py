@@ -17,10 +17,18 @@ class Entidade(ABC):
 
   @property
   def atributos(self) -> dict:
-    return {
+    attributos_classe = {
       k.replace(f'_{self.tableName}__', ''): v
       for k, v in self.__dict__.items() if k.startswith(f'_{self.tableName}')
     }
+    super_class = self.__class__.__base__.__name__
+    if super_class != 'Entidade':
+      atributos_super = {
+        k.replace(f'_{super_class}__', ''): v
+        for k, v in self.__dict__.items() if k.startswith(f'_{super_class}')
+      }
+      attributos_classe = {**attributos_classe, **atributos_super}
+    return attributos_classe
 
   @property
   @abstractmethod
@@ -37,13 +45,15 @@ class Entidade(ABC):
     ''' DEVE FAZER UM SELECT ALL NA TABELA DA ENTIDADE '''
   
   def guardar(self):
+    chaves = f"({','.join(self.atributos.keys())})"
     valores = tuple([v.identificador if isinstance(v, Entidade) else v for v in self.atributos.values()])
     parametros = '('+','.join('?' for _ in valores)+')'
 
     try:
       with self.connection:
         self.cursor.execute(f"""
-          INSERT OR IGNORE INTO {self.tableName} 
+          INSERT OR IGNORE INTO {self.tableName}
+          {chaves}
           VALUES {parametros}
         """, valores)
         return True

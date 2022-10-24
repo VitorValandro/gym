@@ -46,7 +46,7 @@ class Exercicio(Entidade):
         self.cursor.execute(f"""
           CREATE TABLE IF NOT EXISTS {self.tableName} 
             (id INTEGER PRIMARY KEY, nome TEXT, tipo TEXT, aparelho INTEGER NOT NULL,
-             FOREIGN KEY (aparelho) REFERENCES Aparelho (id))
+             FOREIGN KEY (aparelho) REFERENCES Aparelho (id) ON DELETE RESTRICT)
         """)
       return True
     except Exception:
