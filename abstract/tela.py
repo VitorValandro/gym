@@ -61,7 +61,7 @@ class Tela:
         elif opcoes: 
           print(f"Insira um valor numérico dentre as seguintes opções: {' '.join([str(x) for x in opcoes])}")
       else:
-        return int(i)
+        return float(i)
     
   def inserir_string(self, mensagem = 'Insira uma string', min_len = None, max_len = None):
     texto = '\n'+mensagem

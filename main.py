@@ -16,6 +16,10 @@ from modules.aparelho.ControladorAparelho import ControladorAparelho
 from modules.aparelho.TelaAparelho import TelaAparelho
 from modules.exercicio.ControladorExercicio import ControladorExercicio
 from modules.exercicio.TelaExercicio import TelaExercicio
+from modules.pessoa.aluno.ControladorAluno import ControladorAluno
+from modules.pessoa.aluno.TelaAluno import TelaAluno
+from modules.pessoa.professor.ControladorProfessor import ControladorProfessor
+from modules.pessoa.professor.TelaProfessor import TelaProfessor
 from modules.pratica.ControladorPratica import ControladorPratica
 from modules.pratica.TelaPratica import TelaPratica
 
@@ -29,6 +33,15 @@ from modules.pratica.TelaPratica import TelaPratica
 
 #telaExercicio.mostrar_opcoes()
 
-controladorPratica = ControladorPratica()
-telaPratica = TelaPratica(controladorPratica)
+# controladorPratica = ControladorPratica()
+# telaPratica = TelaPratica(controladorPratica)
 
+# controladorAluno = ControladorAluno()
+# telaAluno = TelaAluno(controladorAluno)
+
+# telaAluno.mostrar_opcoes()
+
+controladorProfessor = ControladorProfessor()
+telaProfessor = TelaProfessor(controladorProfessor)
+
+telaProfessor.mostrar_opcoes()

@@ -2,11 +2,11 @@ from datetime import date
 
 from errors.IsEmptyError import IsEmptyError
 from errors.NotFound import NotFound
-from modules.pessoa.aluno.EntidadeAluno import Aluno
+from modules.pessoa.professor.EntidadeProfessor import Professor
 
-class ControladorAluno:
+class ControladorProfessor:
   def __init__(self):
-    self.__alunos = []
+    self.__professores = []
     try:
       self.carregar_dados()
     except IsEmptyError:
@@ -14,14 +14,13 @@ class ControladorAluno:
 
   @property
   def colecao(self):
-    return self.__alunos
+    return self.__professores
 
   def cadastrar(self, dados: dict):
     try:
-      dados['data_matricula'] = date.today()
-      novo_aluno = Aluno(**dados)
-      novo_aluno.guardar()
-      self.colecao.append(novo_aluno)
+      novo_professor = Professor(**dados)
+      novo_professor.guardar()
+      self.colecao.append(novo_professor)
     except:
       raise ValueError
 
@@ -47,9 +46,9 @@ class ControladorAluno:
 
   def carregar_dados(self):
     # Busca todos os cadastros e popula a listagem
-    result = Aluno.buscar()
+    result = Professor.buscar()
     for dados in result:
-      objeto = Aluno(**dados)
+      objeto = Professor(**dados)
       self.colecao.append(objeto)
 
   def buscar_por_id(self, id):

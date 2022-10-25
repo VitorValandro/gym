@@ -1,12 +1,12 @@
 import random
 from abstract.entidade import Entidade
 from errors.IsEmptyError import IsEmptyError
-from exercicio import EntidadeExercicio
+from modules.exercicio.EntidadeExercicio import Exercicio
 
 
 class Pratica(Entidade):
   table_name = 'Pratica'
-  def __init__(self, repeticoes: int, peso: float, exercicio: EntidadeExercicio, id = random.randint(1000,9999)) -> None:
+  def __init__(self, repeticoes: int, peso: float, exercicio: Exercicio, id = random.randint(1000,9999)) -> None:
     super().__init__('Pratica', 'id')
     self.__id = id
     self.__repeticoes = repeticoes
