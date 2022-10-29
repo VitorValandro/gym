@@ -1,7 +1,7 @@
 from abstract.tela import Tela
 
 
-class TelaPratica(Tela):
+class TelaTreino(Tela):
   def __init__(self, controlador, controlador_exercicio):
     titulo = 'Pratica'
     objeto = {

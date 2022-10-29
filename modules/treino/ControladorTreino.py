@@ -1,8 +1,9 @@
 from errors.IsEmptyError import IsEmptyError
 from errors.NotFound import NotFound
-from EntidadePratica import Pratica
+from modules.pratica.EntidadePratica import Pratica
+from modules.pessoa.aluno.EntidadeAluno import Aluno
 
-class ControladorPratica:
+class ControladorTreino:
   def __init__(self):
     self.__pratica = []
     try:

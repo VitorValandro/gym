@@ -6,8 +6,8 @@ class TelaPratica(Tela):
     titulo = 'Pratica'
     objeto = {
       "id": ['Identificador', int, False, self.inserir_inteiro, None],
-      "repeticoes": ['Repeticoes', str, True, self.inserir_inteiro, ['Insira o numero de repeticoes', 3, 15]],
-      "peso": ['Peso', str, True, self.inserir_float, ['Insira o peso: ', 0, 100]],
+      "repeticoes": ['Repeticoes', str, True, self.inserir_inteiro, ['Insira o numero de repeticoes: ']],
+      "peso": ['Peso', str, True, self.inserir_float, ['Insira o peso: ']],
       "exercicio": ['Exercicio', int, True, self.selecionar_estrangeiro, 
         ['Selecione o id do exercicio: ', controlador_exercicio.colecao, 'Exercicios']],
     }

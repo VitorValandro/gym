@@ -47,6 +47,7 @@ class Entidade(ABC):
   def guardar(self):
     chaves = f"({','.join(self.atributos.keys())})"
     valores = tuple([v.identificador if isinstance(v, Entidade) else v for v in self.atributos.values()])
+    print(self.atributos)
     parametros = '('+','.join('?' for _ in valores)+')'
 
     try:

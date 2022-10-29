@@ -1,16 +1,18 @@
 import random
 from abstract.entidade import Entidade
 from errors.IsEmptyError import IsEmptyError
+from modules.pessoa.aluno.EntidadeAluno import Aluno
 from modules.pratica.EntidadePratica import Pratica
 
 
 class Treino(Entidade):
   table_name = 'Treinos'
-  def __init__(self, nome: str, pratica: Pratica, id = random.randint(1000,9999)) -> None:
+  def __init__(self, nome: str, aluno: Aluno, id = random.randint(1000,9999)) -> None:
     super().__init__('Treino', 'id')
     self.__id = id
     self.__nome = nome
-    self.__pratica = []
+    self.__aluno = aluno
+
 
   @property
   def identificador(self):
@@ -29,7 +31,7 @@ class Treino(Entidade):
     return self.__pratica
 
   @pratica.setter
-  def pratica(self, pratica):
+  def pratica(self, aluno):
     self.__pratica = pratica
 
   def criar(self):
@@ -38,7 +40,7 @@ class Treino(Entidade):
         self.cursor.execute(f"""
           CREATE TABLE IF NOT EXISTS {self.tableName} 
             (id INTEGER PRIMARY KEY, nome TEXT, pratica INTEGER NOT NULL,
-             FOREIGN KEY (pratica) REFERENCES Pratica (id))
+             FOREIGN KEY (pratica) REFERENCES Aluno (id))
         """)
       return True
     except Exception:
