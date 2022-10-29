@@ -50,3 +50,12 @@ telaTreino = TelaTreino(controladorTreino, controladorAluno)
 
 
 
+# controladorAluno = ControladorAluno()
+# telaAluno = TelaAluno(controladorAluno)
+
+# telaAluno.mostrar_opcoes()
+
+controladorProfessor = ControladorProfessor()
+telaProfessor = TelaProfessor(controladorProfessor)
+
+telaProfessor.mostrar_opcoes()
