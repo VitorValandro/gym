@@ -16,11 +16,13 @@ from modules.aparelho.ControladorAparelho import ControladorAparelho
 from modules.aparelho.TelaAparelho import TelaAparelho
 from modules.exercicio.ControladorExercicio import ControladorExercicio
 from modules.exercicio.TelaExercicio import TelaExercicio
+from modules.pessoa.aluno.TelaAluno import TelaAluno
 from modules.pratica.ControladorPratica import ControladorPratica
 from modules.pratica.TelaPratica import TelaPratica
 from modules.pessoa.aluno.ControladorAluno import ControladorAluno
 from modules.treino.ControladorTreino import ControladorTreino
 from modules.treino.TelaTreino import TelaTreino
+from modules.pessoa.aluno.TelaAluno import TelaAluno
 
 controladorAparelho = ControladorAparelho()
 telaAparelho = TelaAparelho(controladorAparelho)
@@ -30,16 +32,19 @@ telaAparelho = TelaAparelho(controladorAparelho)
 controladorExercicio = ControladorExercicio()
 telaExercicio = TelaExercicio(controladorExercicio, controladorAparelho)
 
-telaExercicio.mostrar_opcoes()
+# telaExercicio.mostrar_opcoes()
+
+controladorTreino = ControladorTreino()
 
 controladorPratica = ControladorPratica()
-telaPratica = TelaPratica(controladorPratica, controladorExercicio)
-# telaPratica.mostrar_opcoes()
+telaPratica = TelaPratica(controladorPratica, controladorExercicio, controladorTreino)
+telaPratica.mostrar_opcoes()
 
 controladorAluno = ControladorAluno()
+telaAluno = TelaAluno(controladorAluno)
+# telaAluno.mostrar_opcoes()
 
-# controladorTreino = ControladorTreino()
-# telaTreino = TelaTreino(controladorTreino, controladorAluno)
+telaTreino = TelaTreino(controladorTreino, controladorAluno)
 # telaTreino.mostrar_opcoes()
 
 

@@ -1,3 +1,5 @@
+from datetime import date
+
 from errors.IsEmptyError import IsEmptyError
 from errors.NotFound import NotFound
 from modules.pessoa.aluno.EntidadeAluno import Aluno
@@ -16,6 +18,7 @@ class ControladorAluno:
 
   def cadastrar(self, dados: dict):
     try:
+      dados['data_matricula'] = date.today()
       novo_aluno = Aluno(**dados)
       novo_aluno.guardar()
       self.colecao.append(novo_aluno)

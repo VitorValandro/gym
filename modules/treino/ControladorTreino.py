@@ -1,25 +1,26 @@
 from errors.IsEmptyError import IsEmptyError
 from errors.NotFound import NotFound
-from modules.pratica.EntidadePratica import Pratica
 from modules.pessoa.aluno.EntidadeAluno import Aluno
+from modules.treino.EntidadeTreino import Treino
 
 class ControladorTreino:
   def __init__(self):
-    self.__pratica = []
+    self.__treino = []
     try:
+      print("teste 1")
       self.carregar_dados()
     except IsEmptyError:
       pass
 
   @property
   def colecao(self):
-    return self.__pratica
+    return self.__treino
 
   def cadastrar(self, dados: dict):
     try:
-      nova_pratica = Pratica(**dados)
-      nova_pratica.guardar()
-      self.colecao.append(nova_pratica)
+      novo_treino = Treino(**dados)
+      novo_treino.guardar()
+      self.colecao.append(novo_treino)
     except:
       raise ValueError
 
@@ -45,10 +46,11 @@ class ControladorTreino:
 
   def carregar_dados(self):
     # Busca todos os cadastros e popula a listagem
-    result = Pratica.buscar()
+    result = Treino.buscar()
     for dados in result:
-      pratica = Pratica(**dados)
-      self.colecao.append(pratica)
+      treino = Treino(**dados)
+      self.colecao.append(treino)
+    
 
   def buscar_por_id(self, id):
     # Recebe um id, busca ele na lista e devolve o objeto e o indice

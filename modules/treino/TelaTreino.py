@@ -2,14 +2,13 @@ from abstract.tela import Tela
 
 
 class TelaTreino(Tela):
-  def __init__(self, controlador, controlador_exercicio):
-    titulo = 'Pratica'
+  def __init__(self, controlador, controlador_aluno):
+    titulo = 'Treino'
     objeto = {
       "id": ['Identificador', int, False, self.inserir_inteiro, None],
       "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome']],
-      "peso": ['Peso', str, True, self.inserir_float, ['Insira o peso: ', 0, 100]],
-      "exercicio": ['Exercicio', int, True, self.selecionar_estrangeiro, 
-        ['Selecione o id do exercicio: ', controlador_exercicio.colecao, 'Exercicios']],
+      "aluno": ['Aluno', int, True, self.selecionar_estrangeiro, 
+        ['Selecione o id do aluno: ', controlador_aluno.colecao, 'Alunos']],
     }
     opcoes = {
       1: ['Cadastrar um treino', self.cadastrar],
