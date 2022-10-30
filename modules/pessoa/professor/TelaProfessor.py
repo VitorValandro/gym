@@ -7,7 +7,7 @@ class TelaProfessor(Tela):
     titulo = 'Professores'
     objeto = {
       "id": ['Identificador', int, False, self.inserir_inteiro, None],
-      "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome: ', 3, 15]],
+      "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome: ']],
       "cpf": ['CPF', str, True, self.inserir_string, ['Insira o CPF: ']],
       "peso": ['Peso', str, True, self.inserir_inteiro, ['Insira o peso: ']],
       "altura": ['Altura', str, True, self.inserir_float, ['Insira a altura: ']],
@@ -19,10 +19,6 @@ class TelaProfessor(Tela):
       3: ['Listar professores', self.listar],
       4: ['Deletar um professor', self.deletar],
     }
-    super().__init__(titulo, objeto, opcoes, controlador)
-  
-  def cadastrar(self):
-    turnos = []
     dias_semana = {
       1: "Segunda Feira",
       2: "Terça Feira",
@@ -36,19 +32,17 @@ class TelaProfessor(Tela):
       2: "Tarde",
       3: "Noite"
     }
-    objeto_turno = {
+    self.objeto_turno = {
       "id": ['Identificador', int, False, self.inserir_inteiro, None],
       "dia_semana": ['Dia da semana', str, True, self.inserir_enum, ['Insira o dia da semana: ', dias_semana]],
       "periodo": ['Período', str, True, self.inserir_enum, ['Insira o período: ', periodos]],
       "carga_horaria": ['Carga horária', str, True, self.inserir_inteiro, ['Insira a carga horária: ']],
     }
+    super().__init__(titulo, objeto, opcoes, controlador)
+  
+  def cadastrar(self):
     dados = self.pegar_dados()
-    print("\n-- Cadastrar turnos do professor --\n")
-    registrar_turnos = ''
-    while registrar_turnos.lower() != 'n':
-      dados_turno = self.pegar_dados(objeto_turno)
-      registrar_turnos = self.inserir_string("Continuar cadastrando? (digite 'n' para parar)")
-      turnos.append(dados_turno)
+    turnos = self.cadastrar_turnos()
     try:
       self.controlador.cadastrar(dados, turnos)
     except:
@@ -58,12 +52,25 @@ class TelaProfessor(Tela):
       print('Professor cadastrado com sucesso.')
   
   def editar(self):
-    ''' IMPLEMENTANDO '''
     try:
       id_registros = self.listar()
       identificador = self.inserir_inteiro('Digite o id que deseja editar: ', id_registros)
       dados = self.pegar_dados()
-      self.__controlador.editar(identificador, dados)
+
+      opcao = self.opcoes_edicao_turno()
+      if opcao == 1:
+        dados_turnos_cadastro = self.cadastrar_turnos()
+        self.controlador.cadastrar_turno(identificador, dados_turnos_cadastro)
+      if opcao == 2:
+        dados_turnos_edicao = self.editar_turnos(identificador)
+        self.controlador.editar(identificador, dados, dados_turnos_edicao)
+      if opcao == 3:
+        self.listar_turnos(identificador)
+      if opcao == 4:
+        self.deletar_turno(identificador)
+      if opcao == 5:
+        self.controlador.editar(identificador, dados, [])
+    
     except IsEmptyError:
       print(f'Não há {self.titulo} cadastrados ainda.')
     except NotFound:
@@ -71,4 +78,72 @@ class TelaProfessor(Tela):
     except:
       print(f'Ocorreu um problema ao editar o objeto. Tente novamente.')
     else:
-      print(f'Editado com sucesso.')
+      print(f'Professor editado com sucesso.')
+
+  def opcoes_edicao_turno(self):
+    print()
+    print('1 - Cadastrar um novo turno')
+    print('2 - Editar um turno existente')
+    print('3 - Listar turnos do professor')
+    print('4 - Deletar um turno')
+    print('5 - Não quero editar os turnos')
+    return self.inserir_inteiro('Escolha a opção: ', [1,2,3,4, 5])
+
+  def cadastrar_turnos(self):
+    print("\n-- Cadastrar turnos do professor --\n")
+    turnos = []
+    registrar_turnos = ''
+    while registrar_turnos.lower() != 'n':
+      dados_turno = self.pegar_dados(self.objeto_turno)
+      turnos.append(dados_turno)
+
+      registrar_turnos = self.inserir_string("Continuar cadastrando turnos? (digite 'n' para parar)")
+      
+    return turnos
+
+  def editar_turnos(self, id_professor):
+    print("\n-- Editar turnos do professor --\n")
+    turnos_editados = []
+    editando_turnos = ''
+    while editando_turnos.lower() != 'n':
+      id_turnos = self.listar_turnos(id_professor)
+      identificador_turno = self.inserir_inteiro('Digite o id que deseja editar: ', id_turnos)
+      dados_turno = self.pegar_dados(self.objeto_turno)
+      dados_turno['id'] = identificador_turno
+      dados_turno['professor'] = id_professor
+      turnos_editados.append(dados_turno)
+
+      editando_turnos = self.inserir_string("Continuar editando turnos? (digite 'n' para parar)")
+    
+    return turnos_editados
+
+  def listar_turnos(self, id_professor):
+    [professor, _] = self.controlador.buscar_por_id(id_professor)
+    id_turnos = []
+    print(f'\n-- Lista de Turnos --')
+    for turno in professor.turnos:
+      id_turnos.append(turno["id"])
+      print()
+      print(f'ID: {turno["id"]}')
+      print(f'Dia da semana: {turno["dia_semana"]}')
+      print(f'Periodo: {turno["periodo"]}')
+      print(f'Carga horária: {turno["carga_horaria"]}')
+    
+    return id_turnos
+
+  def deletar_turno(self, id_professor):
+    try:
+      id_registros = self.listar_turnos(id_professor)
+      identificador = self.inserir_inteiro('Digite o id que deseja deletar: ', id_registros)
+      self.controlador.deletar_turno(identificador)
+    except IsEmptyError:
+      print(f'Não há {self.titulo} cadastrados ainda.')
+      return
+    except NotFound:
+      print(f'Nenhum objeto encontrado com id = {identificador}. Tente novamente.')
+      return
+    except:
+      print(f'Ocorreu um problema ao deletar o objeto. Tente novamente.')
+      return
+    else:
+      print(f'Turno deletado com sucesso.')

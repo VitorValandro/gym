@@ -19,7 +19,7 @@ class Entidade(ABC):
   def atributos(self) -> dict:
     attributos_classe = {
       k.replace(f'_{self.tableName}__', ''): v
-      for k, v in self.__dict__.items() if k.startswith(f'_{self.tableName}')
+      for k, v in self.__dict__.items() if k.startswith(f'_{self.tableName}') and not k.endswith('_')
     }
     super_class = self.__class__.__base__.__name__
     if super_class != 'Entidade':
@@ -47,7 +47,6 @@ class Entidade(ABC):
   def guardar(self):
     chaves = f"({','.join(self.atributos.keys())})"
     valores = tuple([v.identificador if isinstance(v, Entidade) else v for v in self.atributos.values()])
-    print(self.atributos)
     parametros = '('+','.join('?' for _ in valores)+')'
 
     try:

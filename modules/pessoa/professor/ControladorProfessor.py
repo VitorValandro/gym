@@ -22,21 +22,20 @@ class ControladorProfessor:
     try:
       novo_professor = Professor(**dados)
       novo_professor.guardar()
-      for turno in turnos:
-        turno["professor"] = novo_professor.identificador
-        turno["id"] = random.randint(1000, 9999)
-        novo_turno = Turno(**turno)
-        novo_turno.guardar()
+      self.cadastrar_turno(novo_professor.identificador, turnos)
       self.colecao.append(novo_professor)
     except:
       raise ValueError
 
-  def editar(self, id, dados: dict):
+  def editar(self, id, dados: dict, turnos: list):
     try:
       [objeto, _] = self.buscar_por_id(id)
       for chave, valor in dados.items():
         setattr(objeto, chave, valor)
       objeto.atualizar()
+      for turno in turnos:
+        turno_editado = Turno(**turno)
+        turno_editado.atualizar()
     except (IsEmptyError, NotFound):
       raise
     except:
@@ -51,11 +50,27 @@ class ControladorProfessor:
     except:
       raise ValueError
 
+  def cadastrar_turno(self, identificador, turnos):
+    for turno in turnos:
+      turno["professor"] = identificador
+      turno["id"] = random.randint(1000, 9999)
+      novo_turno = Turno(**turno)
+      novo_turno.guardar()
+
+  def deletar_turno(self, id):
+    try:
+      turno = Turno('', '', 0, 0, id)
+      turno.remover()
+    except:
+      raise ValueError
+
   def carregar_dados(self):
     # Busca todos os cadastros e popula a listagem
     result = Professor.buscar()
     for dados in result:
       objeto = Professor(**dados)
+      turnos = objeto.buscar_turnos()
+      objeto.turnos = turnos
       self.colecao.append(objeto)
 
   def buscar_por_id(self, id):
