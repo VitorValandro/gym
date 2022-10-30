@@ -1,63 +1,26 @@
-# from endereco import Endereco
-# from pessoa import Pessoa
-
-
-
-# pessoa = Pessoa('vitor', 20, '88036-050', 'Rua Trajano Margarida')
-# pessoa.guardar()
-# # print(pessoa.buscar())
-# pessoa.idade = 21
-# pessoa.atualizar()
-# pessoa.endereco.rua = 'Rua João Pedro Haas'
-# pessoa.endereco.atualizar()
-# # print(pessoa.buscar())
-
-from modules.aparelho.ControladorAparelho import ControladorAparelho
 from modules.aparelho.TelaAparelho import TelaAparelho
-from modules.exercicio.ControladorExercicio import ControladorExercicio
-from modules.exercicio.TelaExercicio import TelaExercicio
-from modules.pessoa.aluno.TelaAluno import TelaAluno
-from modules.pessoa.professor.ControladorProfessor import ControladorProfessor
-from modules.pessoa.professor.TelaProfessor import TelaProfessor
-from modules.pratica.ControladorPratica import ControladorPratica
-from modules.pratica.TelaPratica import TelaPratica
 from modules.pessoa.aluno.ControladorAluno import ControladorAluno
-from modules.treino.ControladorTreino import ControladorTreino
-from modules.treino.TelaTreino import TelaTreino
 from modules.pessoa.aluno.TelaAluno import TelaAluno
+from modules.treino.ControladorTreino import ControladorTreino
+from modules.aparelho.ControladorAparelho import ControladorAparelho
 
-# controladorAparelho = ControladorAparelho()
-# telaAparelho = TelaAparelho(controladorAparelho)
+from modules.treino.TelaTreino import TelaTreino
+from modules.exercicio.TelaExercicio import TelaExercicio
+from modules.exercicio.ControladorExercicio import ControladorExercicio
 
-# # telaAparelho.mostrar_opcoes()
+controladorAluno = ControladorAluno()
+controladorExercicio = ControladorExercicio()
+controladorAparelho = ControladorAparelho()
+controladorTreino = ControladorTreino()
 
-# controladorExercicio = ControladorExercicio()
-# telaExercicio = TelaExercicio(controladorExercicio, controladorAparelho)
-
-# # telaExercicio.mostrar_opcoes()
-
-# controladorTreino = ControladorTreino()
-
-# controladorPratica = ControladorPratica()
-# telaPratica = TelaPratica(controladorPratica, controladorExercicio, controladorTreino)
-# telaPratica.mostrar_opcoes()
-
-# controladorAluno = ControladorAluno()
 # telaAluno = TelaAluno(controladorAluno)
-# # telaAluno.mostrar_opcoes()
-
-# telaTreino = TelaTreino(controladorTreino, controladorAluno)
-# telaTreino.mostrar_opcoes()
-
-
-
-
-# controladorAluno = ControladorAluno()
-# telaAluno = TelaAluno(controladorAluno)
-
 # telaAluno.mostrar_opcoes()
 
-controladorProfessor = ControladorProfessor()
-telaProfessor = TelaProfessor(controladorProfessor)
+# telaAparelho = TelaAparelho(controladorAparelho)
+# telaAparelho.mostrar_opcoes()
 
-telaProfessor.mostrar_opcoes()
+# telaExercicio = TelaExercicio(controladorExercicio, controladorAparelho)
+# telaExercicio.mostrar_opcoes()
+
+telaTreino = TelaTreino(controladorTreino, controladorAluno, controladorExercicio)
+telaTreino.mostrar_opcoes()

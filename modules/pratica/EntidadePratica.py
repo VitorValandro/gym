@@ -57,7 +57,7 @@ class Pratica(Entidade):
         self.cursor.execute(f"""
           CREATE TABLE IF NOT EXISTS {self.tableName} 
             (id INTEGER PRIMARY KEY, repeticoes INTEGER, peso REAL, exercicio INTEGER NOT NULL, treino INTEGER NOT NULL, 
-             FOREIGN KEY (exercicio) REFERENCES Exercicio (id),FOREIGN KEY (treino) REFERENCES Treino (id))
+             FOREIGN KEY (exercicio) REFERENCES Exercicio (id),FOREIGN KEY (treino) REFERENCES Treino (id) ON DELETE CASCADE)
         """)
       return True
     except Exception:

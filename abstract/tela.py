@@ -2,6 +2,7 @@ from abc import ABC
 from errors import NotFound
 from errors.BadInputValue import BadInputValue
 from errors.IsEmptyError import IsEmptyError
+from errors.MandatoryRelationshipIsEmpty import MandatoryRelationshipIsEmpty
 
 
 class Tela:
@@ -100,8 +101,8 @@ class Tela:
       id_estrangeiros = self.listar(controlador_estrangeiro, entidade_estrangeira)
       chave_estrangeira = self.inserir_inteiro(mensagem, id_estrangeiros)
     except IsEmptyError:
-      print(f'Não há {entidade_estrangeira} cadastrados ainda. Faça o cadastro de {entidade_estrangeira} antes de prosseguir.')
-      return
+      error = f'Não há {entidade_estrangeira} cadastrados ainda. Faça o cadastro de {entidade_estrangeira} antes de prosseguir.'
+      raise MandatoryRelationshipIsEmpty(error)
     return chave_estrangeira
       
   def mostrar_opcoes(self):
@@ -127,7 +128,11 @@ class Tela:
     return objeto
 
   def cadastrar(self):
-    dados = self.pegar_dados()
+    try:
+      dados = self.pegar_dados()
+    except MandatoryRelationshipIsEmpty as e:
+      print(e)
+      return
     try:
       self.__controlador.cadastrar(dados)
     except:

@@ -137,7 +137,7 @@ class TelaProfessor(Tela):
       identificador = self.inserir_inteiro('Digite o id que deseja deletar: ', id_registros)
       self.controlador.deletar_turno(identificador)
     except IsEmptyError:
-      print(f'Não há {self.titulo} cadastrados ainda.')
+      print(f'Não há turnos cadastrados ainda.')
       return
     except NotFound:
       print(f'Nenhum objeto encontrado com id = {identificador}. Tente novamente.')

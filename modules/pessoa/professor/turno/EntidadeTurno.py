@@ -61,7 +61,7 @@ class Turno(Entidade):
               periodo TEXT,
               carga_horaria INTEGER NOT NULL,
               professor INTEGER NOT NULL,
-              FOREIGN KEY (professor) REFERENCES Professor (id) ON DELETE RESTRICT)
+              FOREIGN KEY (professor) REFERENCES Professor (id) ON DELETE CASCADE)
         """)
       return True
     except Exception:
