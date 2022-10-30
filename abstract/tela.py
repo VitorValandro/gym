@@ -29,6 +29,10 @@ class Tela:
   def opcoes(self):
     return self.__opcoes
 
+  @property
+  def controlador(self):
+    return self.__controlador
+
   def inserir_inteiro(self, message, opcoes: list = None) -> int:
     if opcoes: print(f"Insira um valor numérico inteiro dentre as seguintes opções: {' '.join([str(x) for x in opcoes])}")
     while True:
@@ -109,9 +113,10 @@ class Tela:
     
     self.opcoes[escolha][1]()
 
-  def pegar_dados(self) -> dict:
+  def pegar_dados(self, dados = None) -> dict:
+    if not dados: dados = self.objeto
     objeto = {}
-    for atributo, data in self.objeto.items():
+    for atributo, data in dados.items():
       if(data[2]): # se for editável
         if(data[4]): # se houver params, chama a função com os parâmetros
           valor = data[3](*data[4])

@@ -17,6 +17,8 @@ from modules.aparelho.TelaAparelho import TelaAparelho
 from modules.exercicio.ControladorExercicio import ControladorExercicio
 from modules.exercicio.TelaExercicio import TelaExercicio
 from modules.pessoa.aluno.TelaAluno import TelaAluno
+from modules.pessoa.professor.ControladorProfessor import ControladorProfessor
+from modules.pessoa.professor.TelaProfessor import TelaProfessor
 from modules.pratica.ControladorPratica import ControladorPratica
 from modules.pratica.TelaPratica import TelaPratica
 from modules.pessoa.aluno.ControladorAluno import ControladorAluno
@@ -24,27 +26,27 @@ from modules.treino.ControladorTreino import ControladorTreino
 from modules.treino.TelaTreino import TelaTreino
 from modules.pessoa.aluno.TelaAluno import TelaAluno
 
-controladorAparelho = ControladorAparelho()
-telaAparelho = TelaAparelho(controladorAparelho)
+# controladorAparelho = ControladorAparelho()
+# telaAparelho = TelaAparelho(controladorAparelho)
 
-# telaAparelho.mostrar_opcoes()
+# # telaAparelho.mostrar_opcoes()
 
-controladorExercicio = ControladorExercicio()
-telaExercicio = TelaExercicio(controladorExercicio, controladorAparelho)
+# controladorExercicio = ControladorExercicio()
+# telaExercicio = TelaExercicio(controladorExercicio, controladorAparelho)
 
-# telaExercicio.mostrar_opcoes()
+# # telaExercicio.mostrar_opcoes()
 
-controladorTreino = ControladorTreino()
+# controladorTreino = ControladorTreino()
 
-controladorPratica = ControladorPratica()
-telaPratica = TelaPratica(controladorPratica, controladorExercicio, controladorTreino)
-telaPratica.mostrar_opcoes()
+# controladorPratica = ControladorPratica()
+# telaPratica = TelaPratica(controladorPratica, controladorExercicio, controladorTreino)
+# telaPratica.mostrar_opcoes()
 
-controladorAluno = ControladorAluno()
-telaAluno = TelaAluno(controladorAluno)
-# telaAluno.mostrar_opcoes()
+# controladorAluno = ControladorAluno()
+# telaAluno = TelaAluno(controladorAluno)
+# # telaAluno.mostrar_opcoes()
 
-telaTreino = TelaTreino(controladorTreino, controladorAluno)
+# telaTreino = TelaTreino(controladorTreino, controladorAluno)
 # telaTreino.mostrar_opcoes()
 
 

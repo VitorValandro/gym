@@ -1,8 +1,10 @@
 from datetime import date
+import random
 
 from errors.IsEmptyError import IsEmptyError
 from errors.NotFound import NotFound
 from modules.pessoa.professor.EntidadeProfessor import Professor
+from modules.pessoa.professor.turno.EntidadeTurno import Turno
 
 class ControladorProfessor:
   def __init__(self):
@@ -16,10 +18,15 @@ class ControladorProfessor:
   def colecao(self):
     return self.__professores
 
-  def cadastrar(self, dados: dict):
+  def cadastrar(self, dados: dict, turnos: list):
     try:
       novo_professor = Professor(**dados)
       novo_professor.guardar()
+      for turno in turnos:
+        turno["professor"] = novo_professor.identificador
+        turno["id"] = random.randint(1000, 9999)
+        novo_turno = Turno(**turno)
+        novo_turno.guardar()
       self.colecao.append(novo_professor)
     except:
       raise ValueError
