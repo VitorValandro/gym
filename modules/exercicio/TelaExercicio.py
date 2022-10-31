@@ -6,7 +6,10 @@ class TelaExercicio(Tela):
     titulo = 'Exercícios'
     tipos = {
       1: 'BRAÇOS',
-      2: 'PERNAS',
+      3: 'OMBROS',
+      4: 'ABDOME',
+      5: 'PERNAS',
+      6: 'CARDIO'
     }
     objeto = {
       "id": ['Identificador', int, False, self.inserir_inteiro, None],

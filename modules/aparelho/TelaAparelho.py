@@ -6,9 +6,12 @@ class TelaAparelho(Tela):
   def __init__(self, controlador):
     titulo = 'Aparelhos'
     tipos = {
-      1: 'CROSS',
-      2: 'SUPINO',
-      3: 'HACK'
+      1: 'FIXOS',
+      2: 'EXTENSORAS/FLEXORAS',
+      3: 'LIVRES',
+      4: 'HALTERES',
+      5: 'CARDIOVASCULARES',
+      6: 'CROSS'
     }
     objeto = {
       "id": ['Identificador', int, False, self.inserir_inteiro, None],
