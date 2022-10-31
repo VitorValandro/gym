@@ -20,10 +20,10 @@ class TelaAparelho(Tela):
       "tipo": ['Tipo', str, True, self.inserir_enum, ['Insira o tipo: ', tipos]]
     }
     opcoes = {
-      1: ['Cadastrar um item', self.cadastrar],
-      2: ['Editar um item', self.editar],
-      3: ['Listar itens', self.listar],
-      4: ['Deletar um item', self.deletar],
+      1: ['Cadastrar um aparelho', self.cadastrar],
+      2: ['Editar um aparelho', self.editar],
+      3: ['Listar aparelhos', self.listar],
+      4: ['Deletar um aparelho', self.deletar],
       5: ['Voltar', self.voltar]
     }
     super().__init__(titulo, objeto, opcoes, controlador)
