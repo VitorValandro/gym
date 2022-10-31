@@ -14,11 +14,15 @@ class ControladorAparelho:
   def colecao(self):
     return self.__aparelhos
 
+  @colecao.setter
+  def colecao(self, colecao):
+    self.__aparelhos = colecao
+
   def cadastrar(self, dados: dict):
     try:
       novo_aparelho = Aparelho(**dados)
       novo_aparelho.guardar()
-      self.colecao.append(novo_aparelho)
+      self.carregar_dados()
     except:
       raise ValueError
 
@@ -37,6 +41,7 @@ class ControladorAparelho:
     try:
       [aparelho, _] = self.buscar_por_id(id)
       aparelho.remover()
+      self.carregar_dados()
     except NotFound:
       raise NotFound
     except:
@@ -45,6 +50,7 @@ class ControladorAparelho:
   def carregar_dados(self):
     # Busca todos os cadastros e popula a listagem
     result = Aparelho.buscar()
+    self.colecao = []
     for dados in result:
       aparelho = Aparelho(**dados)
       self.colecao.append(aparelho)

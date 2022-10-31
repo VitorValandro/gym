@@ -26,22 +26,3 @@ class TelaHistorico(Tela):
       3: ['Voltar', self.voltar]
     }
     super().__init__(titulo, objeto, opcoes, controlador)
-
-  # def listar(self) -> list:
-  #   identificadores = []
-  #   if len(self.controlador.colecao):
-  #     print(f'\n-- Lista de Históricos --')
-  #     for historico in self.controlador.colecao:
-  #       identificadores.append(historico.identificador)
-  #       print()
-  #       print(f'Aluno: {historico.aluno}')
-  #       print(f'Professor: {historico.professor}')
-  #       print(f'Treino: {historico.treino}')
-  #       print(f'Avaliação: {historico.avaliacao}')
-  #       print(f'Tempo: {historico.tempo} minutos')
-  #       print(f'Data: {historico.data}')
-  #     print()
-  #     return identificadores
-  #   else:
-  #     print(f'Não há {self.titulo} cadastrados ainda.')
-  #     return

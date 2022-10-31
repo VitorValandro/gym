@@ -17,19 +17,24 @@ class ControladorHistorico:
   def colecao(self):
     return self.__historicos
 
+  @colecao.setter
+  def colecao(self, colecao):
+    self.__historicos = colecao
+
   def cadastrar(self, dados: dict):
     try:
       dados["data"] = datetime.now()
       novo_historico = Historico(**dados)
       novo_historico.data = datetime.now()
       novo_historico.guardar()
-      self.colecao.append(novo_historico)
+      self.carregar_dados()
     except:
       raise ValueError
 
   def carregar_dados(self):
     # Busca todos os cadastros e popula a listagem
     result = Historico.buscar()
+    self.colecao = []
     for dados in result:
       historico = Historico(**dados)
       self.colecao.append(historico)

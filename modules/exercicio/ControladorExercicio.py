@@ -14,11 +14,15 @@ class ControladorExercicio:
   def colecao(self):
     return self.__exercicios
 
+  @colecao.setter
+  def colecao(self, colecao):
+    self.__exercicios = colecao
+
   def cadastrar(self, dados: dict):
     try:
       novo_exercicio = Exercicio(**dados)
       novo_exercicio.guardar()
-      self.colecao.append(novo_exercicio)
+      self.carregar_dados()
     except:
       raise ValueError
 
@@ -37,6 +41,7 @@ class ControladorExercicio:
     try:
       [objeto, _] = self.buscar_por_id(id)
       objeto.remover()
+      self.carregar_dados()
     except NotFound:
       raise NotFound
     except:
@@ -45,6 +50,7 @@ class ControladorExercicio:
   def carregar_dados(self):
     # Busca todos os cadastros e popula a listagem
     result = Exercicio.buscar()
+    self.colecao = []
     for dados in result:
       exercicio = Exercicio(**dados)
       self.colecao.append(exercicio)

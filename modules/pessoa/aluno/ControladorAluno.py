@@ -16,12 +16,16 @@ class ControladorAluno:
   def colecao(self):
     return self.__alunos
 
+  @colecao.setter
+  def colecao(self, colecao):
+    self.__alunos = colecao
+
   def cadastrar(self, dados: dict):
     try:
       dados['data_matricula'] = date.today()
       novo_aluno = Aluno(**dados)
       novo_aluno.guardar()
-      self.colecao.append(novo_aluno)
+      self.carregar_dados()
     except:
       raise ValueError
 
@@ -40,6 +44,7 @@ class ControladorAluno:
     try:
       [objeto, _] = self.buscar_por_id(id)
       objeto.remover()
+      self.carregar_dados()
     except NotFound:
       raise NotFound
     except:
@@ -48,6 +53,7 @@ class ControladorAluno:
   def carregar_dados(self):
     # Busca todos os cadastros e popula a listagem
     result = Aluno.buscar()
+    self.colecao = []
     for dados in result:
       objeto = Aluno(**dados)
       self.colecao.append(objeto)

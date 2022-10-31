@@ -17,12 +17,16 @@ class ControladorTreino:
   def colecao(self):
     return self.__treino
 
+  @colecao.setter
+  def colecao(self, colecao):
+    self.__treino = colecao
+
   def cadastrar(self, dados: dict, praticas: list):
     try:
       novo_treino = Treino(**dados)
       novo_treino.guardar()
       self.cadastrar_pratica(novo_treino.identificador, praticas)
-      self.colecao.append(novo_treino)
+      self.carregar_dados()
     except:
       raise ValueError
   
@@ -32,6 +36,7 @@ class ControladorTreino:
       pratica["id"] = random.randint(1000, 9999)
       novo_pratica = Pratica(**pratica)
       novo_pratica.guardar()
+      self.carregar_dados()
 
   def editar(self, id, dados: dict, praticas: list):
     try:
@@ -51,6 +56,7 @@ class ControladorTreino:
     try:
       [objeto, _] = self.buscar_por_id(id)
       objeto.remover()
+      self.carregar_dados()
     except NotFound:
       raise NotFound
     except:
@@ -60,12 +66,14 @@ class ControladorTreino:
     try:
       pratica = Pratica(0, 0, None, None, id)
       pratica.remover()
+      self.carregar_dados()
     except:
       raise ValueError
 
   def carregar_dados(self):
     # Busca todos os cadastros e popula a listagem
     result = Treino.buscar()
+    self.colecao = []
     for dados in result:
       treino = Treino(**dados)
       praticas = treino.buscar_praticas()

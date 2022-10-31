@@ -18,12 +18,16 @@ class ControladorProfessor:
   def colecao(self):
     return self.__professores
 
+  @colecao.setter
+  def colecao(self, colecao):
+    self.__professores = colecao
+
   def cadastrar(self, dados: dict, turnos: list):
     try:
       novo_professor = Professor(**dados)
       novo_professor.guardar()
       self.cadastrar_turno(novo_professor.identificador, turnos)
-      self.colecao.append(novo_professor)
+      self.carregar_dados()
     except:
       raise ValueError
 
@@ -45,6 +49,7 @@ class ControladorProfessor:
     try:
       [objeto, _] = self.buscar_por_id(id)
       objeto.remover()
+      self.carregar_dados()
     except NotFound:
       raise NotFound
     except:
@@ -56,17 +61,20 @@ class ControladorProfessor:
       turno["id"] = random.randint(1000, 9999)
       novo_turno = Turno(**turno)
       novo_turno.guardar()
-
+      self.carregar_dados()
+  
   def deletar_turno(self, id):
     try:
       turno = Turno('', '', 0, 0, id)
       turno.remover()
+      self.carregar_dados()
     except:
       raise ValueError
 
   def carregar_dados(self):
     # Busca todos os cadastros e popula a listagem
     result = Professor.buscar()
+    self.colecao = []
     for dados in result:
       objeto = Professor(**dados)
       turnos = objeto.buscar_turnos()
