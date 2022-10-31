@@ -28,23 +28,6 @@ class TelaTreino(Tela):
     }
     super().__init__(titulo, objeto, opcoes, controlador)
 
-  def listar(self,) -> list:
-    identificadores = []
-    if len(self.controlador.colecao):
-      print(f'\n-- Lista de Treinos --')
-      for item in self.controlador.colecao:
-        print()
-        identificadores.append(item.identificador)
-        print(f'ID: {item.identificador}')
-        for atributo in [atributo for atributo in item.atributos if not atributo == 'id']:
-          print(f'{self.objeto[atributo][0]}: {getattr(item, atributo)}')
-        self.visualizar_praticas(item.identificador)
-      print()
-      return identificadores
-    else:
-      print(f'Não há {self.titulo} cadastrados ainda.')
-      return
-
   def cadastrar(self):
     try:
       dados = self.pegar_dados()
