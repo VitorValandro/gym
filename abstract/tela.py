@@ -168,14 +168,15 @@ class Tela:
       print()
       return identificadores
     else:
-      raise IsEmptyError
+      print(f'Não há {self.titulo} cadastrados ainda.')
+      return
   
   def deletar(self):
     try:
       id_registros = self.listar()
       identificador = self.inserir_inteiro('Digite o id que deseja deletar: ', id_registros)
       self.__controlador.deletar(identificador)
-    except IsEmptyError:
+    except MandatoryRelationshipIsEmpty:
       print(f'Não há {self.titulo} cadastrados ainda.')
       return
     except NotFound:
