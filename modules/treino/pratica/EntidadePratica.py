@@ -7,7 +7,8 @@ from modules.treino.EntidadeTreino import Treino
 
 class Pratica(Entidade):
   table_name = 'Pratica'
-  def __init__(self, repeticoes: int, peso: float, exercicio: Exercicio,treino: Treino, id = random.randint(1000,9999)) -> None:
+  def __init__(self, repeticoes: int, peso: float, exercicio: Exercicio,treino: Treino, id = None) -> None:
+    if not id: id = random.randint(1000,9999)
     super().__init__('Pratica', 'id')
     self.__id = id
     self.__repeticoes = repeticoes

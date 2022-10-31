@@ -5,7 +5,8 @@ from errors.IsEmptyError import IsEmptyError
 
 class Exercicio(Entidade):
   table_name = 'Exercicio'
-  def __init__(self, nome: str, tipo: str, aparelho: int, id = random.randint(1000,9999)) -> None:
+  def __init__(self, nome: str, tipo: str, aparelho: int, id = None) -> None:
+    if not id: id = random.randint(1000,9999)
     super().__init__('Exercicio', 'id')
     self.__id = id
     self.__nome = nome

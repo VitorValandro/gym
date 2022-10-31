@@ -15,9 +15,10 @@ class Historico(Entidade):
       aluno: Aluno,
       professor: Professor,
       treino: Treino,
-      id = random.randint(1000,9999)
+      id = None
     ) -> None:
     super().__init__('Historico', 'id')
+    if not id: id = random.randint(1000,9999)
     self.__id = id
     self.__data = data
     self.__tempo = tempo

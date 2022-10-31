@@ -3,19 +3,20 @@ from errors import IsEmptyError, NotFound
 from errors.MandatoryRelationshipIsEmpty import MandatoryRelationshipIsEmpty
 
 class TelaTreino(Tela):
-  def __init__(self, controlador, controlador_aluno, controlador_exercicio):
+  def __init__(self, controlador, tela_aluno, tela_exercicio):
     titulo = 'Treino'
     objeto = {
       "id": ['Identificador', int, False, self.inserir_inteiro, None],
-      "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome']],
+      "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome: ']],
       "aluno": ['Aluno', int, True, self.selecionar_estrangeiro, 
-        ['Selecione o id do aluno: ', controlador_aluno.colecao, 'Alunos']],
+        ['Selecione o id do aluno: ', tela_aluno, 'Alunos']],
     }
     opcoes = {
       1: ['Cadastrar um treino', self.cadastrar],
       2: ['Editar um treino', self.editar],
       3: ['Listar treinos', self.listar],
       4: ['Deletar um treino', self.deletar],
+      5: ['Voltar', self.voltar]
     }
 
     self.objeto_pratica = {
@@ -23,9 +24,26 @@ class TelaTreino(Tela):
       "repeticoes": ['Repeticoes', str, True, self.inserir_inteiro, ['Insira o numero de repeticoes: ']],
       "peso": ['Peso', str, True, self.inserir_float, ['Insira o peso: ']],
       "exercicio": ['Exercicio', int, True, self.selecionar_estrangeiro, 
-        ['Selecione o id do exercicio: ', controlador_exercicio.colecao, 'Exercicios']],
+        ['Selecione o id do exercicio: ', tela_exercicio, 'Exercicios']],
     }
     super().__init__(titulo, objeto, opcoes, controlador)
+
+  def listar(self,) -> list:
+    identificadores = []
+    if len(self.controlador.colecao):
+      print(f'\n-- Lista de Treinos --')
+      for item in self.controlador.colecao:
+        print()
+        identificadores.append(item.identificador)
+        print(f'ID: {item.identificador}')
+        for atributo in [atributo for atributo in item.atributos if not atributo == 'id']:
+          print(f'{self.objeto[atributo][0]}: {getattr(item, atributo)}')
+        self.visualizar_praticas(item.identificador)
+      print()
+      return identificadores
+    else:
+      print(f'Não há {self.titulo} cadastrados ainda.')
+      return
 
   def cadastrar(self):
     try:
@@ -77,7 +95,7 @@ class TelaTreino(Tela):
     print('2 - Editar um prática existente')
     print('3 - Listar práticas do treino')
     print('4 - Deletar um prática')
-    print('5 - Não quero editar os práticas')
+    print('5 - Não quero editar as práticas')
     return self.inserir_inteiro('Escolha a opção: ', [1,2,3,4,5])
 
   def cadastrar_praticas(self):
@@ -107,6 +125,15 @@ class TelaTreino(Tela):
       editando_praticas = self.inserir_string("Continuar editando práticas? (digite 'n' para parar)")
     
     return praticas_editados
+
+  def visualizar_praticas(self, id_treino):
+    [treino, _] = self.controlador.buscar_por_id(id_treino)
+    print('Práticas:')
+    for pratica in treino.praticas:
+      print(f"\t{'-'*10}")
+      print(f'\tRepetições: {pratica["repeticoes"]}')
+      print(f'\tPeso: {pratica["peso"]}')
+      print(f'\tExercício: {pratica["exercicio"]}')
 
   def listar_praticas(self, id_treino):
     [treino, _] = self.controlador.buscar_por_id(id_treino)

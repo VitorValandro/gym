@@ -34,6 +34,9 @@ class Tela:
   def controlador(self):
     return self.__controlador
 
+  def voltar(self):
+    return
+
   def inserir_inteiro(self, message, opcoes: list = None) -> int:
     if opcoes: print(f"Insira um valor numérico inteiro dentre as seguintes opções: {' '.join([str(x) for x in opcoes])}")
     while True:
@@ -50,7 +53,7 @@ class Tela:
           print(f"Insira um valor numérico inteiro dentre as seguintes opções: {' '.join([str(x) for x in opcoes])}")
       else:
         return int(i)
-  
+
   def inserir_float(self, message, opcoes: list = None) -> int:
     if opcoes: print(f"Insira um valor numérico decimal dentre as seguintes opções: {' '.join([str(x) for x in opcoes])}")
     while True:
@@ -67,13 +70,11 @@ class Tela:
           print(f"Insira um valor numérico dentre as seguintes opções: {' '.join([str(x) for x in opcoes])}")
       else:
         return float(i)
-    
-  def inserir_string(self, mensagem = 'Insira uma string', min_len = None, max_len = None):
-    texto = '\n'+mensagem
-    print(texto)
+   
+  def inserir_string(self, mensagem = 'Insira uma string: ', min_len = None, max_len = None):
     while True:
       try:
-        entrada = input('Entrada: ')
+        entrada = input(mensagem)
         if entrada.strip() == '':
           raise IsEmptyError
         if min_len and len(entrada) < min_len:
@@ -104,7 +105,7 @@ class Tela:
       error = f'Não há {entidade_estrangeira} cadastrados ainda. Faça o cadastro de {entidade_estrangeira} antes de prosseguir.'
       raise MandatoryRelationshipIsEmpty(error)
     return chave_estrangeira
-      
+
   def mostrar_opcoes(self):
     escolha = 0
     print(f'\n--- {self.titulo} ---')
@@ -155,22 +156,30 @@ class Tela:
       print(f'Ocorreu um problema ao editar o objeto. Tente novamente.')
     else:
       print(f'Editado com sucesso.')
-  
-  def listar(self, colecao = 1, titulo = 1) -> list:
-    if colecao == 1: colecao = self.__controlador.colecao
+
+  def listar(self, tela = 1, titulo = 1) -> list:
+    if tela == 1: 
+      objeto = self.objeto
+      colecao = self.__controlador.colecao
+    else:
+      objeto = tela.objeto
+      colecao = tela.controlador.colecao
     if titulo == 1: titulo = self.titulo
     identificadores = []
     if len(colecao):
       print(f'\n-- Lista de {titulo} --')
-      for objeto in colecao:
-        identificadores.append(objeto.identificador)
-        print(f'{objeto.identificador} - {objeto.nome}')
+      for item in colecao:
+        print()
+        identificadores.append(item.identificador)
+        print(f'ID: {item.identificador}')
+        for atributo in [atributo for atributo in item.atributos if not atributo == 'id']:
+          print(f'{objeto[atributo][0]}: {getattr(item, atributo)}')
       print()
       return identificadores
     else:
       print(f'Não há {self.titulo} cadastrados ainda.')
       return
-  
+
   def deletar(self):
     try:
       id_registros = self.listar()

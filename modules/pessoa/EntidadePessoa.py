@@ -4,7 +4,8 @@ from errors.IsEmptyError import IsEmptyError
 
 
 class Pessoa(Entidade):
-  def __init__(self, nome: str, cpf: str, peso: int, altura: float, table_name: str, id = random.randint(1000,9999)) -> None:
+  def __init__(self, nome: str, cpf: str, peso: int, altura: float, table_name: str, id = None) -> None:
+    if not id: id = random.randint(1000,9999)
     super().__init__(table_name, 'id')
     self.__id = id
     self.__nome = nome

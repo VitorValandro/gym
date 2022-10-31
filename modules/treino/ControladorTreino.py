@@ -2,7 +2,7 @@ import random
 from errors.IsEmptyError import IsEmptyError
 from errors.NotFound import NotFound
 from modules.pessoa.aluno.EntidadeAluno import Aluno
-from modules.pratica.EntidadePratica import Pratica
+from modules.treino.pratica.EntidadePratica import Pratica
 from modules.treino.EntidadeTreino import Treino
 
 class ControladorTreino:

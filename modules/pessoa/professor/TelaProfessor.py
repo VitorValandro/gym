@@ -18,6 +18,7 @@ class TelaProfessor(Tela):
       2: ['Editar um professor', self.editar],
       3: ['Listar professores', self.listar],
       4: ['Deletar um professor', self.deletar],
+      5: ['Voltar', self.voltar]
     }
     dias_semana = {
       1: "Segunda Feira",
@@ -39,6 +40,23 @@ class TelaProfessor(Tela):
       "carga_horaria": ['Carga horária', str, True, self.inserir_inteiro, ['Insira a carga horária: ']],
     }
     super().__init__(titulo, objeto, opcoes, controlador)
+
+  def listar(self,) -> list:
+    identificadores = []
+    if len(self.controlador.colecao):
+      print(f'\n-- Lista de Professores --')
+      for item in self.controlador.colecao:
+        print()
+        identificadores.append(item.identificador)
+        print(f'ID: {item.identificador}')
+        for atributo in [atributo for atributo in item.atributos if not atributo == 'id']:
+          print(f'{self.objeto[atributo][0]}: {getattr(item, atributo)}')
+        self.visualizar_turnos(item.identificador)
+      print()
+      return identificadores
+    else:
+      print(f'Não há {self.titulo} cadastrados ainda.')
+      return
   
   def cadastrar(self):
     dados = self.pegar_dados()
@@ -116,6 +134,15 @@ class TelaProfessor(Tela):
       editando_turnos = self.inserir_string("Continuar editando turnos? (digite 'n' para parar)")
     
     return turnos_editados
+
+  def visualizar_turnos(self, id_professor):
+    [professor, _] = self.controlador.buscar_por_id(id_professor)
+    print('Turnos:')
+    for turno in professor.turnos:
+      print(f"\t{'-'*10}")
+      print(f'\tDia da semana: {turno["dia_semana"]}')
+      print(f'\tPeriodo: {turno["periodo"]}')
+      print(f'\tCarga horária: {turno["carga_horaria"]}')
 
   def listar_turnos(self, id_professor):
     [professor, _] = self.controlador.buscar_por_id(id_professor)

@@ -12,7 +12,7 @@ class TelaAparelho(Tela):
     }
     objeto = {
       "id": ['Identificador', int, False, self.inserir_inteiro, None],
-      "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome', 3, 15]],
+      "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome: ', 3, 15]],
       "quantidade": ['Quantidade', int, True, self.inserir_inteiro, ['Insira a quantidade: ',]],
       "tipo": ['Tipo', str, True, self.inserir_enum, ['Insira o tipo: ', tipos]]
     }
@@ -21,5 +21,6 @@ class TelaAparelho(Tela):
       2: ['Editar um item', self.editar],
       3: ['Listar itens', self.listar],
       4: ['Deletar um item', self.deletar],
+      5: ['Voltar', self.voltar]
     }
     super().__init__(titulo, objeto, opcoes, controlador)

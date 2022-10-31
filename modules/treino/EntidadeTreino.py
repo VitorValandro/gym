@@ -5,7 +5,8 @@ from modules.pessoa.aluno.EntidadeAluno import Aluno
 
 class Treino(Entidade):
   table_name = 'Treino'
-  def __init__(self, nome: str, aluno: Aluno, id = random.randint(1000,9999)) -> None:
+  def __init__(self, nome: str, aluno: Aluno, id = None) -> None:
+    if not id: id = random.randint(1000,9999)
     super().__init__('Treino', 'id')
     self.__id = id
     self.__nome = nome
