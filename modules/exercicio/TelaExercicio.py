@@ -13,7 +13,7 @@ class TelaExercicio(Tela):
     }
     objeto = {
       "id": ['Identificador', int, False, self.inserir_inteiro, None],
-      "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome', 3, 15]],
+      "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome', 3, 25]],
       "tipo": ['Tipo', str, True, self.inserir_enum, ['Insira o tipo: ', tipos]],
       "aparelho": ['Aparelho', int, True, self.selecionar_estrangeiro, 
         ['Selecione o id do aparelho: ', controlador_aparelho.colecao, 'Aparelhos']],
