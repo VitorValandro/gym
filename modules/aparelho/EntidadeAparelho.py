@@ -1,61 +1,46 @@
 import random
-from abstract.entidade import Entidade
-from errors.IsEmptyError import IsEmptyError
+from modules.aparelho.AparelhoDAO import AparelhoDAO
 
 
-class Aparelho(Entidade):
-  table_name = 'Aparelho'
-  def __init__(self, nome: str, quantidade: int, tipo: str, id = None) -> None:
-    if not id: id = random.randint(1000,9999)
-    super().__init__('Aparelho', 'id')
-    self.__id = id
-    self.__nome = nome
-    self.__quantidade = quantidade
-    self.__tipo = tipo
+class Aparelho(AparelhoDAO):
 
-  @property
-  def identificador(self):
-    return self.__id
+    def __init__(self, nome: str, quantidade: int, tipo: str, id=None) -> None:
+        if not id:
+            id = random.randint(1000, 9999)
+        super().__init__()
+        self.__id = id
+        self.__nome = nome
+        self.__quantidade = quantidade
+        self.__tipo = tipo
 
-  @property
-  def nome(self):
-    return self.__nome
+    @property
+    def identificador(self):
+        return self.__id
 
-  @nome.setter
-  def nome(self, nome):
-    self.__nome = nome
+    @property
+    def nome(self):
+        return self.__nome
 
-  @property
-  def quantidade(self):
-    return self.__quantidade
+    @nome.setter
+    def nome(self, nome):
+        self.__nome = nome
 
-  @quantidade.setter
-  def quantidade(self, quantidade):
-    self.__quantidade = quantidade
+    @property
+    def quantidade(self):
+        return self.__quantidade
 
-  @property
-  def tipo(self):
-    return self.__tipo
+    @quantidade.setter
+    def quantidade(self, quantidade):
+        self.__quantidade = quantidade
 
-  @tipo.setter
-  def tipo(self, tipo):
-    self.__tipo = tipo
+    @property
+    def tipo(self):
+        return self.__tipo
 
-  def criar(self):
-    try:
-      with self.connection:
-        self.cursor.execute(f"""
-          CREATE TABLE IF NOT EXISTS {self.tableName} 
-            (id INTEGER PRIMARY KEY, nome TEXT, quantidade INTEGER, tipo TEXT)
-        """)
-      return True
-    except Exception:
-      return False
+    @tipo.setter
+    def tipo(self, tipo):
+        self.__tipo = tipo
 
-  @staticmethod
-  def buscar() -> list:
-    try:
-      res = Aparelho.cursor.execute(f"SELECT * FROM {Aparelho.table_name}")
-      return [dict(row) for row in res.fetchall()]
-    except:
-      raise IsEmptyError
+    @staticmethod
+    def buscar() -> list:
+        return AparelhoDAO.buscar()

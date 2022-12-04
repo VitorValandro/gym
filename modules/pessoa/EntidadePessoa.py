@@ -1,50 +1,49 @@
 import random
-from abstract.entidade import Entidade
 from errors.IsEmptyError import IsEmptyError
 
 
-class Pessoa(Entidade):
-  def __init__(self, nome: str, cpf: str, peso: int, altura: float, table_name: str, id = None) -> None:
-    if not id: id = random.randint(1000,9999)
-    super().__init__(table_name, 'id')
-    self.__id = id
-    self.__nome = nome
-    self.__cpf = cpf
-    self.__peso = peso
-    self.__altura = altura
+class Pessoa:
+    def __init__(self, nome: str, cpf: str, peso: int, altura: float, id=None) -> None:
+        if not id:
+            id = random.randint(1000, 9999)
+        self.__id = id
+        self.__nome = nome
+        self.__cpf = cpf
+        self.__peso = peso
+        self.__altura = altura
 
-  @property
-  def identificador(self):
-    return self.__id
+    @property
+    def identificador(self):
+        return self.__id
 
-  @property
-  def nome(self):
-    return self.__nome
+    @property
+    def nome(self):
+        return self.__nome
 
-  @nome.setter
-  def nome(self, nome):
-    self.__nome = nome
+    @nome.setter
+    def nome(self, nome):
+        self.__nome = nome
 
-  @property
-  def cpf(self):
-    return self.__cpf
+    @property
+    def cpf(self):
+        return self.__cpf
 
-  @cpf.setter
-  def cpf(self, cpf):
-    self.__cpf = cpf
+    @cpf.setter
+    def cpf(self, cpf):
+        self.__cpf = cpf
 
-  @property
-  def peso(self):
-    return self.__peso
+    @property
+    def peso(self):
+        return self.__peso
 
-  @peso.setter
-  def peso(self, peso):
-    self.__peso = peso
+    @peso.setter
+    def peso(self, peso):
+        self.__peso = peso
 
-  @property
-  def altura(self):
-    return self.__altura
+    @property
+    def altura(self):
+        return self.__altura
 
-  @altura.setter
-  def altura(self, altura):
-    self.__altura = altura
+    @altura.setter
+    def altura(self, altura):
+        self.__altura = altura

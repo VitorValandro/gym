@@ -1,62 +1,46 @@
 import random
-from abstract.entidade import Entidade
-from errors.IsEmptyError import IsEmptyError
+from modules.exercicio.ExercicioDAO import ExercicioDAO
 
 
-class Exercicio(Entidade):
-  table_name = 'Exercicio'
-  def __init__(self, nome: str, tipo: str, aparelho: int, id = None) -> None:
-    if not id: id = random.randint(1000,9999)
-    super().__init__('Exercicio', 'id')
-    self.__id = id
-    self.__nome = nome
-    self.__tipo = tipo
-    self.__aparelho = aparelho
+class Exercicio(ExercicioDAO):
 
-  @property
-  def identificador(self):
-    return self.__id
+    def __init__(self, nome: str, tipo: str, aparelho: int, id=None) -> None:
+        if not id:
+            id = random.randint(1000, 9999)
+        super().__init__()
+        self.__id = id
+        self.__nome = nome
+        self.__tipo = tipo
+        self.__aparelho = aparelho
 
-  @property
-  def nome(self):
-    return self.__nome
+    @property
+    def identificador(self):
+        return self.__id
 
-  @nome.setter
-  def nome(self, nome):
-    self.__nome = nome
+    @property
+    def nome(self):
+        return self.__nome
 
-  @property
-  def tipo(self):
-    return self.__tipo
+    @nome.setter
+    def nome(self, nome):
+        self.__nome = nome
 
-  @tipo.setter
-  def tipo(self, tipo):
-    self.__tipo = tipo
-  
-  @property
-  def aparelho(self):
-    return self.__aparelho
+    @property
+    def tipo(self):
+        return self.__tipo
 
-  @aparelho.setter
-  def aparelho(self, aparelho):
-    self.__aparelho = aparelho
+    @tipo.setter
+    def tipo(self, tipo):
+        self.__tipo = tipo
 
-  def criar(self):
-    try:
-      with self.connection:
-        self.cursor.execute(f"""
-          CREATE TABLE IF NOT EXISTS {self.tableName} 
-            (id INTEGER PRIMARY KEY, nome TEXT, tipo TEXT, aparelho INTEGER NOT NULL,
-             FOREIGN KEY (aparelho) REFERENCES Aparelho (id) ON DELETE RESTRICT)
-        """)
-      return True
-    except Exception:
-      raise
+    @property
+    def aparelho(self):
+        return self.__aparelho
 
-  @staticmethod
-  def buscar() -> list:
-    try:
-      res = Exercicio.cursor.execute(f"SELECT * FROM {Exercicio.table_name}")
-      return [dict(row) for row in res.fetchall()]
-    except:
-      raise IsEmptyError
+    @aparelho.setter
+    def aparelho(self, aparelho):
+        self.__aparelho = aparelho
+
+    @staticmethod
+    def buscar() -> list:
+        return ExercicioDAO.buscar()
