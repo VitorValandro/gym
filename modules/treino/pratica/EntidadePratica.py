@@ -1,73 +1,57 @@
 import random
-from abstract.entidade import Entidade
-from errors.IsEmptyError import IsEmptyError
 from modules.exercicio.EntidadeExercicio import Exercicio
 from modules.treino.EntidadeTreino import Treino
+from modules.treino.pratica.PraticaDAO import PraticaDAO
 
 
-class Pratica(Entidade):
-  table_name = 'Pratica'
-  def __init__(self, repeticoes: int, peso: float, exercicio: Exercicio,treino: Treino, id = None) -> None:
-    if not id: id = random.randint(1000,9999)
-    super().__init__('Pratica', 'id')
-    self.__id = id
-    self.__repeticoes = repeticoes
-    self.__peso = peso
-    self.__exercicio = exercicio
-    self.__treino = treino
+class Pratica(PraticaDAO):
 
-  @property
-  def identificador(self):
-    return self.__id
+    def __init__(self, repeticoes: int, peso: float, exercicio: Exercicio, treino: Treino, id=None) -> None:
+        if not id:
+            id = random.randint(1000, 9999)
+        super().__init__()
+        self.__id = id
+        self.__repeticoes = repeticoes
+        self.__peso = peso
+        self.__exercicio = exercicio
+        self.__treino = treino
 
-  @property
-  def repeticoes(self):
-    return self.__repeticoes
+    @property
+    def identificador(self):
+        return self.__id
 
-  @repeticoes.setter
-  def repeticoes(self, repeticoes):
-    self.__repeticoes = repeticoes
+    @property
+    def repeticoes(self):
+        return self.__repeticoes
 
-  @property
-  def peso(self):
-    return self.__peso
+    @repeticoes.setter
+    def repeticoes(self, repeticoes):
+        self.__repeticoes = repeticoes
 
-  @peso.setter
-  def peso(self, peso):
-    self.__peso = peso
-   
-  @property
-  def exercicio(self):
-    return self.__exercicio
+    @property
+    def peso(self):
+        return self.__peso
 
-  @exercicio.setter
-  def exercicio(self, exercicio):
-    self.__exercicio = exercicio
+    @peso.setter
+    def peso(self, peso):
+        self.__peso = peso
 
-  @property
-  def treino(self):
-    return self.__treino
+    @property
+    def exercicio(self):
+        return self.__exercicio
 
-  @treino.setter
-  def treino(self, treino):
-    self.__treino = treino
+    @exercicio.setter
+    def exercicio(self, exercicio):
+        self.__exercicio = exercicio
 
-  def criar(self):
-    try:
-      with self.connection:
-        self.cursor.execute(f"""
-          CREATE TABLE IF NOT EXISTS {self.tableName} 
-            (id INTEGER PRIMARY KEY, repeticoes INTEGER, peso REAL, exercicio INTEGER NOT NULL, treino INTEGER NOT NULL, 
-             FOREIGN KEY (exercicio) REFERENCES Exercicio (id),FOREIGN KEY (treino) REFERENCES Treino (id) ON DELETE CASCADE)
-        """)
-      return True
-    except Exception:
-      raise
+    @property
+    def treino(self):
+        return self.__treino
 
-  @staticmethod
-  def buscar() -> list:
-    try:
-      res = Pratica.cursor.execute(f"SELECT * FROM {Pratica.table_name}")
-      return [dict(row) for row in res.fetchall()]
-    except:
-      raise IsEmptyError
+    @treino.setter
+    def treino(self, treino):
+        self.__treino = treino
+
+    @staticmethod
+    def buscar() -> list:
+        return PraticaDAO.buscar()
