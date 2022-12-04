@@ -20,6 +20,3 @@ class TelaCadastrarAparelho2:
     def iniciar(self):
         print(self.values)
         print(self.values["tipo"])
-
-tela = TelaCadastrarAparelho2()
-tela.iniciar()

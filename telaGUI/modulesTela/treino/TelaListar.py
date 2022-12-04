@@ -1,0 +1,20 @@
+import PySimpleGUI as sg
+
+class TelaListarAparelho:
+    def __init__(self):
+        nomes = "teste"
+        #layout
+        layout = [
+            [sg.Text(self.nomes)],
+            [sg.Button('Deletar')]
+        ]
+        #janela
+        janela = sg.Window("Dados gerais").layout(layout)
+        #extrair dados
+        self.button, self.values = janela.Read()
+    
+    def iniciar(self):
+        print(self.values)
+
+tela = TelaListarAparelho()
+tela.iniciar()
