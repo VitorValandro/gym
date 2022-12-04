@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 
-class TelaListarAparelho:
+class TelaListar:
     def __init__(self):
         nomes = "teste"
         #layout

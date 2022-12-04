@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 
-class TelaCadastrarAparelho2:
+class TelaCadastrar:
     def __init__(self):
         #layout
         layout = [

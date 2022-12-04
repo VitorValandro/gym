@@ -1,5 +1,5 @@
 import PySimpleGUI as sg
-
+from telaGUI.modulesTela.historico.TelaCadastrar import TelaCadastrar
 
 class TelaInicial:
     def __init__(self):
@@ -18,13 +18,12 @@ class TelaInicial:
     def iniciar(self):
         escolha = self.values['escolha']
         if(escolha == '1'):
-            pass
+            tela = TelaCadastrar()
+            tela.iniciar()
         elif(escolha == '2'):
             pass
         elif(escolha == '3'):
             pass
         elif(escolha == '4'):
-            pass
-        elif(escolha == '5'):
-            pass
+            return False
         print(self.values)

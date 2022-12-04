@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 
-class TelaDeleteAparelho:
+class TelaDelete:
     def __init__(self):
         #layout
         layout = [
