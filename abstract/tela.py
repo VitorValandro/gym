@@ -1,6 +1,8 @@
 from abc import ABC
+import re
 from errors import NotFound
 from errors.BadInputValue import BadInputValue
+from errors.InvalidCPF import InvalidCPF
 from errors.IsEmptyError import IsEmptyError
 from errors.MandatoryRelationshipIsEmpty import MandatoryRelationshipIsEmpty
 
@@ -105,6 +107,19 @@ class Tela:
       error = f'Não há {entidade_estrangeira} cadastrados ainda. Faça o cadastro de {entidade_estrangeira} antes de prosseguir.'
       raise MandatoryRelationshipIsEmpty(error)
     return chave_estrangeira
+
+  def inserir_cpf(self, mensagem: str):
+    while True:
+      mascara_cpf = re.compile('\d{3}\.\d{3}\.\d{3}\-\d{2}')
+      cpf = self.inserir_string(mensagem)
+
+      try:
+        if mascara_cpf.search(cpf):
+          return cpf
+        else:
+          raise InvalidCPF
+      except InvalidCPF as e:
+        print(e)
 
   def mostrar_opcoes(self):
     escolha = 0

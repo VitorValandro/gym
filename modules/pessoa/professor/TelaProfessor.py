@@ -8,7 +8,7 @@ class TelaProfessor(Tela):
     objeto = {
       "id": ['Identificador', int, False, self.inserir_inteiro, None],
       "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome: ']],
-      "cpf": ['CPF', str, True, self.inserir_string, ['Insira o CPF: ']],
+      "cpf": ['CPF', str, True, self.inserir_cpf, ['Insira o CPF: ']],
       "peso": ['Peso', str, True, self.inserir_inteiro, ['Insira o peso: ']],
       "altura": ['Altura', str, True, self.inserir_float, ['Insira a altura: ']],
       "salario": ['Salário', str, True, self.inserir_float, ['Insira o salário: ']],

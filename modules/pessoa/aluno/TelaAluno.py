@@ -8,7 +8,7 @@ class TelaAluno(Tela):
       "id": ['Identificador', int, False, self.inserir_inteiro, None],
       "data_matricula": ['Data de Matrícula', int, False, None, None],
       "nome": ['Nome', str, True, self.inserir_string, ['Insira o nome: ', 3, 15]],
-      "cpf": ['CPF', str, True, self.inserir_string, ['Insira o CPF: ']],
+      "cpf": ['CPF', str, True, self.inserir_cpf, ['Insira o CPF: ']],
       "peso": ['Peso', str, True, self.inserir_inteiro, ['Insira o peso: ']],
       "altura": ['Altura', str, True, self.inserir_float, ['Insira a altura: ']],
     }
