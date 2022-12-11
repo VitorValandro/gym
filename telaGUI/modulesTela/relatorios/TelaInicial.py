@@ -22,14 +22,23 @@ class TelaInicial:
     def iniciar(self):
         escolha = self.values['escolha']
         if(escolha == '1'):
-            tela = TelaCadastrar()
-            tela.iniciar()
+            pass
+            #tela1
         elif(escolha == '2'):
             pass
+            #tela2
         elif(escolha == '3'):
             pass
+            #tela3
         elif(escolha == '4'):
             pass
+            #tela4
         elif(escolha == '5'):
+            #tela5
+            pass
+        elif(escolha == '6'):
+            #tela6
+            pass
+        elif(escolha == '7'):
             return False
         print(self.values)

@@ -38,4 +38,3 @@ class TelaInicial:
             tela.iniciar()
         elif(escolha == '5'):
             return False
-        print(self.values)

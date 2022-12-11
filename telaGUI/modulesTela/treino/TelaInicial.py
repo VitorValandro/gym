@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from telaGUI.modulesTela.treino.telaCadastrar import TelaCadastrar
 
 
 class TelaInicial:
@@ -20,13 +21,16 @@ class TelaInicial:
     def iniciar(self):
         escolha = self.values['escolha']
         if(escolha == '1'):
-            pass
+            tela = TelaCadastrar()
+            tela.iniciar()
         elif(escolha == '2'):
-            pass
+            tela = TelaEditarAparelho()
+            tela.iniciar()
         elif(escolha == '3'):
-            pass
+            tela = TelaListarAparelho()
+            tela.iniciar()
         elif(escolha == '4'):
-            pass
+            tela = TelaDeleteAparelho()
+            tela.iniciar()
         elif(escolha == '5'):
-            pass
-        print(self.values)
+            return False
