@@ -1,8 +1,8 @@
 import PySimpleGUI as sg
 from telaGUI.modulesTela.aparelho.TelaCadastrar import TelaCadastrar
-from telaGUI.modulesTela.aparelho.TelaEditar import TelaEditarAparelho
-from telaGUI.modulesTela.aparelho.TelaDelete import TelaDeleteAparelho
-from telaGUI.modulesTela.aparelho.TelaListar import TelaListarAparelho
+from telaGUI.modulesTela.aparelho.TelaEditar import TelaEditar
+from telaGUI.modulesTela.aparelho.TelaDelete import TelaDelete
+from telaGUI.modulesTela.aparelho.TelaListar import TelaListar
 
 
 
@@ -28,13 +28,13 @@ class TelaInicial:
             tela = TelaCadastrar()
             tela.iniciar()
         elif(escolha == '2'):
-            tela = TelaEditarAparelho()
+            tela = TelaEditar()
             tela.iniciar()
         elif(escolha == '3'):
-            tela = TelaListarAparelho()
+            tela = TelaListar()
             tela.iniciar()
         elif(escolha == '4'):
-            tela = TelaDeleteAparelho()
+            tela = TelaDelete()
             tela.iniciar()
         elif(escolha == '5'):
             return False

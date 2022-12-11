@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 
-class TelaDeleteAparelho:
+class TelaDelete:
     def __init__(self):
         #layout
         layout = [
@@ -14,6 +14,3 @@ class TelaDeleteAparelho:
     
     def iniciar(self):
         print(self.values)
-
-tela = TelaDeleteAparelho()
-tela.iniciar()

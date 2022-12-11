@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 
-class TelaEditarAparelho:
+class TelaEditar:
     def __init__(self):
         #layout
         layout = [
@@ -20,6 +20,3 @@ class TelaEditarAparelho:
     def iniciar(self):
         print(self.values)
         print(self.values["tipo"])
-
-tela = TelaEditarAparelho()
-tela.iniciar()

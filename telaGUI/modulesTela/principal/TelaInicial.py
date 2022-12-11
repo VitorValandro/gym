@@ -57,3 +57,4 @@ class TelaInicial:
         else:
             sg.Popup('Digite um número válido', keep_on_top=True)
         return True
+
