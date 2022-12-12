@@ -13,4 +13,4 @@ class TelaDelete:
         self.button, self.values = janela.Read()
     
     def iniciar(self):
-        print(self.values)
+        print(self)

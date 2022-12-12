@@ -22,6 +22,7 @@ class TelaInicial:
         self.button, self.values = janela.Read()
     
     def iniciar(self):
+
         escolha = self.values['escolha']
         if(escolha == '1'):
             tela = TelaCadastrar()
