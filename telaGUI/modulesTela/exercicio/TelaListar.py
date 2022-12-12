@@ -14,7 +14,5 @@ class TelaListar:
         self.button, self.values = janela.Read()
     
     def iniciar(self):
+        return False
         print(self.values)
-
-tela = TelaListarAparelho()
-tela.iniciar()

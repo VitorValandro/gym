@@ -1,4 +1,6 @@
 import PySimpleGUI as sg
+from PySimpleGUI import Window
+
 from telaGUI.modulesTela.aluno.TelaCadastrar import TelaCadastrar
 from telaGUI.modulesTela.aluno.TelaEditar import TelaEditar
 from telaGUI.modulesTela.aluno.TelaListar import TelaListar
@@ -37,5 +39,6 @@ class TelaInicial:
             tela = TelaDelete()
             tela.iniciar()
         elif(escolha == '5'):
+            Window.close()
             return False
         print(self.values)

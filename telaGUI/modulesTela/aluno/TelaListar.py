@@ -15,6 +15,3 @@ class TelaListar:
     
     def iniciar(self):
         print(self.values)
-
-tela = TelaListarAparelho()
-tela.iniciar()
